@@ -4,12 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="description" content="Laravel EG Packages">
+        <meta name="description" content="You can create options, reuse them and rely on them at a later time. Inspired by the WordPress system and built on the Laravel framework.">
 
         <meta property="og:site_name" content="Laravel EG"/>
-        <meta property="og:title" content="Packages | Laravel EG"/>
-        <meta property="og:description" content="Laravel EG Packages"/>
-        <meta property="og:url" content="https://laraveleg.github.io/docs/packages"/>
+        <meta property="og:title" content="Options Package | Laravel EG"/>
+        <meta property="og:description" content="You can create options, reuse them and rely on them at a later time. Inspired by the WordPress system and built on the Laravel framework."/>
+        <meta property="og:url" content="https://laraveleg.github.io/docs/package-options"/>
         <meta property="og:image" content="/assets/img/logo.png"/>
         <meta property="og:type" content="website"/>
 
@@ -17,7 +17,7 @@
         <meta name="twitter:card" content="summary_large_image">
 
         
-        <title>Laravel EG | Packages</title>
+        <title>Laravel EG | Options Package</title>
 
         <link rel="home" href="https://laraveleg.github.io/">
         <link rel="icon" href="/favicon.ico">
@@ -71,7 +71,7 @@
             <li class="pl-4">
             
         <a href="/docs/packages"
-            class="lvl0  active font-semibold text-blue-500 nav-menu__item hover:text-blue-500"
+            class="lvl0 lvl0-active  nav-menu__item hover:text-blue-500"
         >
             Packages
         </a>
@@ -81,7 +81,7 @@
             <li class="pl-4">
             
         <a href="/docs/package-options"
-            class="lvl1   nav-menu__item hover:text-blue-500"
+            class="lvl1  active font-semibold text-blue-500 nav-menu__item hover:text-blue-500"
         >
             Options
         </a>
@@ -102,17 +102,153 @@
         </nav>
 
         <div class="DocSearch-content w-full lg:w-3/5 break-words pb-16 lg:pl-4" v-pre>
-            <h1 id="packages">Packages</h1>
-
-<p>This is a starter template for creating a beautiful, customizable documentation site for your project with minimal effort. You’ll only have to change a few settings and you’re ready to go.</p>
-
-<h3><a href="/docs/package-options">laraveleg\options</a></h3>
+            <h1>laraveleg\options</h1>
 
 <p>You can create options, reuse them and rely on them at a later time. Inspired by the <a href="https://codex.wordpress.org/Options_API">WordPress</a> system and built on the <code>Laravel</code> framework.</p>
 
-<h3><a href="/docs/package-user-online">laraveleg\user-online</a></h3>
+<h2>Install</h2>
 
-<p>Define the status of the user that was online or otherwise.</p>
+<pre><code class="language-bash">composer require laraveleg/options
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>You can manage options in a simple way by helpers.</p>
+
+<h2>Cache Mode</h2>
+
+<h3>add_option</h3>
+
+<p>You can add an option through the following line :-</p>
+
+<pre><code class="language-php">add_option($key, $value, $expiration);
+</code></pre>
+
+<p><code>$key</code>: The option ID that you will use to fetch its value.</p>
+
+<p><code>$value</code>: Put the value of any type of data.</p>
+
+<p><code>$expiration</code>: Expiration date. This can be unused and saved all the time. Ex: <code>add_option($key, $value)</code>.</p>
+
+<h3>get_option</h3>
+
+<p>Fetching value for a specific option :-</p>
+
+<pre><code class="language-php">get_option($key, $default)
+</code></pre>
+
+<p><code>$key</code>: The option ID.
+<code>$default</code>: You can specify a default value if the option is not found.</p>
+
+<h3>has_option</h3>
+
+<p>Make sure the option is there :-</p>
+
+<pre><code class="language-php">has_option($key)
+</code></pre>
+
+<p><code>$key</code>: The option ID.</p>
+
+<h3>remove_option</h3>
+
+<p>You can delete any option :-</p>
+
+<pre><code class="language-php">remove_option($key)
+</code></pre>
+
+<p><code>$key</code>: The option ID.</p>
+
+<hr />
+
+<h2>Eloquent Mode</h2>
+
+<p>You can put the settings to a specific element in a specific model.</p>
+
+<h3>Set config</h3>
+
+<p>Go to <code>laraveloptions.php</code> file in configs directory</p>
+
+<pre><code class="language-php">'eloquent_mode' =&gt; true, // Enable Eloquent Mode
+</code></pre>
+
+<h3>Use for model</h3>
+
+<p>Add the trait in your specific model.</p>
+
+<pre><code class="language-php">use LaravelEG\LaravelOptions\Traits\LaravelOptionEloquentMode;
+
+class Unit extends Model
+{
+    use LaravelOptionEloquentMode;
+</code></pre>
+
+<h3>add_option</h3>
+
+<p>You can add an option through the following line :-</p>
+
+<pre><code class="language-php">$unit = Unit::find(1);
+$unit-&gt;addOption($key, $value, $expiration);
+</code></pre>
+
+<p><code>$key</code>: The option ID that you will use to fetch its value.</p>
+
+<p><code>$value</code>: Put the value of any type of data.</p>
+
+<p><code>$expiration</code>: Expiration date. This can be unused and saved all the time. Ex: <code>add_option($key, $value)</code>.</p>
+
+<h3>get_option</h3>
+
+<p>Fetching value for a specific option :-</p>
+
+<pre><code class="language-php">$unit = Unit::find(1);
+$unit-&gt;getOption($key, $default)
+</code></pre>
+
+<p><code>$key</code>: The option ID.
+<code>$default</code>: You can specify a default value if the option is not found.</p>
+
+<h3>has_option</h3>
+
+<p>Make sure the option is there :-</p>
+
+<pre><code class="language-php">$unit = Unit::find(1);
+$unit-&gt;hasOption($key)
+</code></pre>
+
+<p><code>$key</code>: The option ID.</p>
+
+<h3>remove_option</h3>
+
+<p>You can delete any option :-</p>
+
+<pre><code class="language-php">$unit = Unit::find(1);
+$unit-&gt;removeOption($key)
+</code></pre>
+
+<p><code>$key</code>: The option ID.</p>
+
+<blockquote>
+  <p>You an use this <code>Trait</code> in any model on your app.</p>
+</blockquote>
+
+<h2>Testing</h2>
+
+<p>Run the tests with:</p>
+
+<pre><code class="language-bash">vendor/bin/phpunit
+</code></pre>
+
+<h2>Contributing</h2>
+
+<p>Please see <a href="CONTRIBUTING.md">CONTRIBUTING</a> for details.</p>
+
+<h2>Security</h2>
+
+<p>If you discover any security-related issues, please email komicho1996@gmail.com instead of using the issue tracker.</p>
+
+<h2>License</h2>
+
+<p>The MIT License (MIT). Please see <a href="/LICENSE.md">License File</a> for more information.</p>
         </div>
     </div>
 </section>
